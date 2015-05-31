@@ -7,11 +7,14 @@ package service;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.ejb.EJBException;
 import javax.naming.InitialContext;
+import services.StoreBookingFacadeLocal;
 import services.StoreCustomerFacadeLocal;
 import services.StoreDVDCopyFacadeLocal;
 import services.StoreDvdFacadeLocal;
 import services.StoreEmployeeFacadeLocal;
+import util.StoreBookingUtil;
 import util.StoreDVDCopyUtil;
 import util.StoreDVDUtil;
 
@@ -25,6 +28,7 @@ public class ServiceMethods {
     private static StoreEmployeeFacadeLocal storeemployeefacade;
     private static StoreDVDCopyFacadeLocal storedvdcopyfacade;
     private static StoreCustomerFacadeLocal storecustomerfacade;
+    private static StoreBookingFacadeLocal storebookingfacade;
     
     boolean isWeb = false;
     
@@ -37,6 +41,7 @@ public class ServiceMethods {
             storeemployeefacade = (StoreEmployeeFacadeLocal) getEJBBean("storeemployeefacade");
             storedvdcopyfacade = (StoreDVDCopyFacadeLocal) getEJBBean("storedvdcopyfacade");
             storecustomerfacade = (StoreCustomerFacadeLocal) getEJBBean("storecustomerfacade");
+            storebookingfacade = (StoreBookingFacadeLocal) getEJBBean("storebookingfacade");
         }
         
         this.isWeb = isWeb;
@@ -63,8 +68,16 @@ public class ServiceMethods {
     public List<StoreDVDUtil> getDVDs() {
       return  storedvdfacade.getDVDs();
     }
-    public void addDVD(StoreDVDUtil util) {
-        storedvdfacade.addDVD(util);
+    public String addDVD(StoreDVDUtil util) {
+        
+        try{
+            storedvdfacade.addDVD(util);
+        }
+        catch(EJBException ex) {
+            return ex.getMessage();
+        }
+        
+        return "Success";
     }
     public List<StoreDVDUtil> getDVDsByTitle(String title) {
         return storedvdfacade.getDVDsByTitle(title);
@@ -86,6 +99,17 @@ public class ServiceMethods {
     }
     public List<StoreDVDCopyUtil> getCopiedByDVDId(Long dvdId) {
         return storedvdfacade.getCopiedByDVDId(dvdId);
+    }
+    
+    public String addBooking(StoreBookingUtil booking) {
+        
+        try{
+            storebookingfacade.addBooking(booking);
+        }
+        catch(EJBException ex) {
+            return ex.getMessage();
+        }
+        return "Success!";
     }
     
     

@@ -5,11 +5,13 @@
  */
 package util;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Risina
  */
-public class StoreBookingUtil {
+public class StoreBookingUtil implements Serializable{
     private Long id;
     private StoreCustomerUtil customerId;
     private StoreDVDCopyUtil dvdCopyId;

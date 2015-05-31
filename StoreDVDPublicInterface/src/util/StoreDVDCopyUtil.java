@@ -24,6 +24,10 @@ public class StoreDVDCopyUtil implements Serializable{
         this.isle = isle;
     }
     
+    public StoreDVDCopyUtil(long id) {
+        this.id = id;
+    }
+    
     public StoreDVDCopyUtil(StoreDVDUtil dvdId, int shelf, int isle) {
         this.dvdId = dvdId;
         this.shelf = shelf;

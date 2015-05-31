@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "StoreBooking.findAll", query = "SELECT s FROM StoreBooking s"),
     @NamedQuery(name = "StoreBooking.findByStoreBookingId", query = "SELECT s FROM StoreBooking s WHERE s.storeBookingId = :storeBookingId"),
 //    @NamedQuery(name = "StoreBooking.findStoreBookingByDvdId", query = "SELECT s FROM StoreBooking s WHERE s.storeBookingCopyId.storeDvdId = :storeDvdId"),
-//    @NamedQuery(name = "StoreBooking.findStoreBookingsByCopyId", query = "SELECT s FROM StoreBooking s WHERE s.storeBookingCopyId.storeBookingCopyId = :storeBookingCopyId")
+    @NamedQuery(name = "StoreBooking.findStoreBookingsByCopyId", query = "SELECT s FROM StoreBooking s WHERE s.storeBookingCopyId.storeDvdCopyId = :storeDvdCopyId")
 })
 public class StoreBooking implements Serializable {
     private static final long serialVersionUID = 1L;

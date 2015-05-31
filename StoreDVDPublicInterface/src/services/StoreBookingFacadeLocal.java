@@ -17,5 +17,5 @@ import util.StoreBookingUtil;
 public interface StoreBookingFacadeLocal {
 
     public List<StoreBookingUtil> getBookingsByDVDId(Long id);
-    
+    public void addBooking(StoreBookingUtil booking);    
 }
