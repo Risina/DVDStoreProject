@@ -7,6 +7,7 @@ package desktop;
 
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import service.ServiceMethods;
 import services.StoreDVDCopyFacadeLocal;
 import services.StoreDvdFacadeLocal;
 import services.StoreEmployeeFacadeLocal;
@@ -22,27 +23,20 @@ public class Employee extends javax.swing.JFrame {
      * Creates new form Menu
      */
     
-    StoreDvdFacadeLocal storeDVDFacade;
-    StoreEmployeeFacadeLocal storeEmployeeFacadeLocal;
-    StoreDVDCopyFacadeLocal storedvdcopyfacade;
     Long employeeId;
+    
+    ServiceMethods sMethods;
     
     public Employee() {
         initComponents();
     }
     
-    public Employee(StoreDvdFacadeLocal storeDVDFacade, 
-            StoreEmployeeFacadeLocal storeEmployeeFacadeLocal, 
-            StoreDVDCopyFacadeLocal storedvdcopyfacade, 
-            Long employeeId){
-        
+    public Employee(boolean isWeb, Long userId){
         initComponents();
-        this.storeDVDFacade = storeDVDFacade;
-        this.storeEmployeeFacadeLocal = storeEmployeeFacadeLocal;
-        this.storedvdcopyfacade = storedvdcopyfacade;
-        this.employeeId = employeeId;
+        employeeId = userId;
+        sMethods = new ServiceMethods(isWeb);
         
-        updateTable(storeDVDFacade.getDVDs());
+        updateTable(sMethods.getDVDs());
         updateCombobox();
     }
 
@@ -89,6 +83,7 @@ public class Employee extends javax.swing.JFrame {
         dvdCopyTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(800, 800));
 
         jPanel1.setBackground(new java.awt.Color(153, 153, 153));
 
@@ -144,7 +139,7 @@ public class Employee extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(89, 89, 89)
                         .addComponent(addDVDButton)))
-                .addContainerGap(93, Short.MAX_VALUE))
+                .addContainerGap(87, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -320,9 +315,9 @@ public class Employee extends javax.swing.JFrame {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(51, 51, 51)
                         .addComponent(addCopyButton)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 471, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -353,15 +348,15 @@ public class Employee extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(24, 24, 24))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -392,8 +387,8 @@ public class Employee extends javax.swing.JFrame {
                formatTextField.getText());
        
        util.setAddedEmployeeId(employeeId);
-       storeDVDFacade.addDVD(util);
-       updateTable(storeDVDFacade.getDVDs());
+       sMethods.addDVD(util);
+       updateTable(sMethods.getDVDs());
     }//GEN-LAST:event_addDVDButtonActionPerformed
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
@@ -404,16 +399,16 @@ public class Employee extends javax.swing.JFrame {
         
         switch(index) {
             case 0:
-                list = storeDVDFacade.getDVDsByTitle(searchString);
+                list = sMethods.getDVDsByTitle(searchString);
                 break;
             case 1:
-                list = storeDVDFacade.getDVDsByYear(searchString);
+                list = sMethods.getDVDsByYear(searchString);
                 break;
             case 2:
-                list = storeDVDFacade.getDVDsByRating(searchString);
+                list = sMethods.getDVDsByRating(searchString);
                 break;
             case 3:
-                list = storeDVDFacade.getDVDsByFormat(searchString);
+                list = sMethods.getDVDsByFormat(searchString);
                 break;
             default:
                 break;
@@ -423,12 +418,12 @@ public class Employee extends javax.swing.JFrame {
     }//GEN-LAST:event_searchButtonActionPerformed
 
     private void resetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetButtonActionPerformed
-        updateTable(storeDVDFacade.getDVDs());
+        updateTable(sMethods.getDVDs());
     }//GEN-LAST:event_resetButtonActionPerformed
 
     private void copySearchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copySearchButtonActionPerformed
 
-        updateCopyTable(storedvdcopyfacade.getCopiedByDVDId(Long.parseLong(dvdIdTextField.getText())));
+        updateCopyTable(sMethods.getCopiedByDVDId(Long.parseLong(dvdIdTextField.getText())));
     }//GEN-LAST:event_copySearchButtonActionPerformed
 
     private void addCopyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCopyButtonActionPerformed
@@ -439,14 +434,14 @@ public class Employee extends javax.swing.JFrame {
         StoreDVDUtil dvdUtil = new StoreDVDUtil(dvdId, null, null, null, null, null);
         StoreDVDCopyUtil util = new StoreDVDCopyUtil(dvdUtil, shelfNo, isleNo);
         
-        storedvdcopyfacade.addCopy(util);
-        updateCopyTable(storedvdcopyfacade.getCopiedByDVDId(Long.parseLong(dvdIdTextField.getText())));
+        sMethods.addCopy(util);
+        updateCopyTable(sMethods.getCopiedByDVDId(Long.parseLong(dvdIdTextField.getText())));
     }//GEN-LAST:event_addCopyButtonActionPerformed
     
     private void updateTable(List<StoreDVDUtil> dvds) {
                 
         DefaultTableModel model = new DefaultTableModel();
-        dvdTable.setModel(model);
+        
         
         String[] columnNames = {"Id",
         "Title",
@@ -457,6 +452,7 @@ public class Employee extends javax.swing.JFrame {
         };
 
         model.setColumnIdentifiers(columnNames);
+        dvdTable.setModel(model);
         
         for(StoreDVDUtil dvd: dvds) {
             String[] s = new String[6];

@@ -7,6 +7,7 @@ package desktop;
 
 import javax.naming.InitialContext;
 import javax.swing.ButtonGroup;
+import service.ServiceMethods;
 import services.*;
 import util.StoreDVDUtil;
 
@@ -19,20 +20,16 @@ public final class DesktopClient extends javax.swing.JFrame {
     private static final String TOGGLE_CUSTOMER = "Customer";
     private static final String TOGGLE_EMPLOYEE = "Employee";
     private String user;
+    private ServiceMethods sMethods;
+    boolean isWeb;
+   
     
-    private static StoreDvdFacadeLocal storedvdfacade;
-    private static StoreEmployeeFacadeLocal storeemployeefacade;
-    private static StoreDVDCopyFacadeLocal storedvdcopyfacade;
-    private static StoreCustomerFacadeLocal storecustomerFacadeLocal;
-    
-    public DesktopClient() {
+    public DesktopClient(boolean isWeb) {
         initComponents();
+        this.isWeb = isWeb;
         customerToggleButton.setSelected(true);
         user = TOGGLE_CUSTOMER;
-        storedvdfacade = (StoreDvdFacadeLocal) getEJBBean("storedvdfacade");
-        storeemployeefacade = (StoreEmployeeFacadeLocal) getEJBBean("storeemployeefacade");
-        storedvdcopyfacade = (StoreDVDCopyFacadeLocal) getEJBBean("storedvdcopyfacade");
-        storecustomerFacadeLocal = (StoreCustomerFacadeLocal) getEJBBean("storecustomerfacade");
+        sMethods = new ServiceMethods(isWeb);
     }
 
     /**
@@ -145,20 +142,20 @@ public final class DesktopClient extends javax.swing.JFrame {
         //String s = storeemployeefacade.authencticate(userId+":"+password);
         
         if(user.equals(TOGGLE_CUSTOMER)) {
-            if(storecustomerFacadeLocal.authencticate(userId+":"+password).equals(userId)) {
+            if(sMethods.authenticate(userId+":"+password, TOGGLE_CUSTOMER).equals(userId)) {
                 java.awt.EventQueue.invokeLater(new Runnable() {
                     @Override
                     public void run() {
-                        new Customer(storedvdfacade, storecustomerFacadeLocal, storedvdcopyfacade, Long.parseLong(userId)).setVisible(true);
+                        new Customer(isWeb, Long.parseLong(userId)).setVisible(true);
                     }
                 });
             }     
         }
         else {
-            if(storeemployeefacade.authencticate(userId+":"+password).equals(userId)) {
+            if(sMethods.authenticate(userId+":"+password, TOGGLE_EMPLOYEE).equals(userId)) {
                 java.awt.EventQueue.invokeLater(new Runnable() {
                     public void run() {
-                        new Employee(storedvdfacade, storeemployeefacade, storedvdcopyfacade, Long.parseLong(userId)).setVisible(true);
+                        new Employee(isWeb, Long.parseLong(userId)).setVisible(true);
                     }
                 });
             }       
@@ -211,7 +208,7 @@ public final class DesktopClient extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new DesktopClient().setVisible(true);
+                new DesktopClient(false).setVisible(true);
             }
         });
     }

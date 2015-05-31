@@ -7,6 +7,7 @@ package desktop;
 
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import service.ServiceMethods;
 import services.StoreCustomerFacadeLocal;
 import services.StoreDVDCopyFacadeLocal;
 import services.StoreDvdFacadeLocal;
@@ -23,27 +24,16 @@ public class Customer extends javax.swing.JFrame {
     /**
      * Creates new form Customer
      */
-    StoreDvdFacadeLocal storeDVDFacade;
-    StoreCustomerFacadeLocal storeCustomerFacadeLocal;
-    StoreDVDCopyFacadeLocal storedvdcopyfacade;
     Long customerId;
+   
+    ServiceMethods sMethods;
     
-    public Customer() {
+    public Customer(boolean isWeb, Long userId){
         initComponents();
-    }
-    
-    public Customer(StoreDvdFacadeLocal storeDVDFacade, 
-            StoreCustomerFacadeLocal storeCustomerFacadeLocal, 
-            StoreDVDCopyFacadeLocal storedvdcopyfacade, 
-            Long customerId){
+        customerId = userId;
+        sMethods = new ServiceMethods(isWeb);
         
-        initComponents();
-        this.storeDVDFacade = storeDVDFacade;
-        this.storeCustomerFacadeLocal = storeCustomerFacadeLocal;
-        this.storedvdcopyfacade = storedvdcopyfacade;
-        this.customerId = customerId;
-        
-        updateTable(storeDVDFacade.getDVDs());
+        updateTable(sMethods.getDVDs());
         updateCombobox();
     }
 
@@ -193,7 +183,7 @@ public class Customer extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void resetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetButtonActionPerformed
-        updateTable(storeDVDFacade.getDVDs());
+        updateTable(sMethods.getDVDs());
     }//GEN-LAST:event_resetButtonActionPerformed
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
@@ -204,16 +194,16 @@ public class Customer extends javax.swing.JFrame {
 
         switch(index) {
             case 0:
-            list = storeDVDFacade.getDVDsByTitle(searchString);
+            list = sMethods.getDVDsByTitle(searchString);
             break;
             case 1:
-            list = storeDVDFacade.getDVDsByYear(searchString);
+            list = sMethods.getDVDsByYear(searchString);
             break;
             case 2:
-            list = storeDVDFacade.getDVDsByRating(searchString);
+            list = sMethods.getDVDsByRating(searchString);
             break;
             case 3:
-            list = storeDVDFacade.getDVDsByFormat(searchString);
+            list = sMethods.getDVDsByFormat(searchString);
             break;
             default:
             break;
@@ -224,7 +214,7 @@ public class Customer extends javax.swing.JFrame {
 
     private void copySearchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copySearchButtonActionPerformed
 
-        updateCopyTable(storedvdcopyfacade.getCopiedByDVDId(Long.parseLong(dvdIdTextField.getText())));
+        updateCopyTable(sMethods.getCopiedByDVDId(Long.parseLong(dvdIdTextField.getText())));
     }//GEN-LAST:event_copySearchButtonActionPerformed
 
     private void updateTable(List<StoreDVDUtil> dvds) {
