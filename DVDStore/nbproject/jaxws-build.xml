@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><!--
+        *** GENERATED FROM jax-ws.xml - DO NOT EDIT !                             ***
+        *** TO MODIFY wsimport options USE Web Service node -> Edit WS Attributes ***
+        *** TO CHANGE TARGETS GENERATED TO jaxws-build.xml COPY THOSE             ***
+        *** TARGETS TO ../build.xml AND MODIFY THAT FILE INSTEAD                  ***
+
+        --><project xmlns:xalan="http://xml.apache.org/xslt" xmlns:ejbjarproject2="http://www.netbeans.org/ns/j2ee-ejbjarproject/2" xmlns:jaxws="http://www.netbeans.org/ns/jax-ws/1">
+    <!--
+                ===================
+                JAX-WS WSGEN SECTION
+                ===================
+            -->
+    <!--
+                ===================
+                JAX-WS WSIMPORT SECTION
+                ===================
+            -->
+    <target name="wsimport-init" depends="init">
+        <fail if="${wsimport.bad.version}" message="WsImport ant task defined in the classpath ${j2ee.platform.wsimport.classpath} has a serious bug. See http://wiki.netbeans.org/MetroIssue for details."/>
+        <mkdir dir="${build.generated.sources.dir}/jax-ws"/>
+        <mkdir dir="${classes.dir}"/>
+        <property name="j2ee.platform.wsimport.classpath" value="${libs.jaxws21.classpath}"/>
+        <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
+            <classpath path="${j2ee.platform.wsimport.classpath}"/>
+        </taskdef>
+    </target>
+    <target name="wsimport-client-StoreDVDFacade" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/StoreDVDFacade"/>
+        <property name="wsdl-StoreDVDFacade" location="${meta.inf}/xml-resources/web-service-references/StoreDVDFacade/wsdl/localhost_8080/StoreDVDFacadeService/StoreDVDFacade.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/StoreDVDFacade" destdir="${build.generated.dir}/jax-wsCache/StoreDVDFacade" wsdl="${wsdl-StoreDVDFacade}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/StoreDVDFacadeService/StoreDVDFacade?wsdl" xnocompile="true" xendorsed="true" package="client">
+            <depends file="${wsdl-StoreDVDFacade}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/StoreDVDFacade"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/StoreDVDFacade">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-StoreDVDFacade" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/StoreDVDFacade"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/client"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-StoreDVDFacade"/>
+</project>
