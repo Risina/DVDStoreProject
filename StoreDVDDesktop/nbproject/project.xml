@@ -17,6 +17,9 @@
             <included-library dirs="200">file.reference.appserv-rt.jar</included-library>
             <included-library dirs="200">file.reference.javaee.jar</included-library>
             <included-library dirs="200">libs.javaee-web-api-7.0.classpath</included-library>
+            <included-library dirs="200">file.reference.httpclient-4.4.1.jar</included-library>
+            <included-library dirs="200">file.reference.jersey-client.jar</included-library>
+            <included-library dirs="200">file.reference.gson-2.3.1.jar</included-library>
         </data>
         <references xmlns="http://www.netbeans.org/ns/ant-project-references/1">
             <reference>

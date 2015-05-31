@@ -66,7 +66,13 @@ public class ServiceMethods {
     }
     
     public List<StoreDVDUtil> getDVDs() {
-      return  storedvdfacade.getDVDs();
+        if(isWeb) {
+            return new RestClient().getDVDs();
+        }
+        else {
+            return storedvdfacade.getDVDs();
+        }
+      
     }
     public String addDVD(StoreDVDUtil util) {
         

@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI (http://jax-ws.java.net). RI's version is Metro/2.3.1-b419 (branches/2.3.1.x-7937; 2014-08-04T08:11:03+0000) JAXWS-RI/2.2.10-b140803.1500 JAXWS-API/2.2.11 JAXB-RI/2.2.10-b140802.1033 JAXB-API/2.2.12-b140109.1041 svn-revision#unknown. --><xs:schema xmlns:tns="http://services/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://services/">
+
+<xs:element name="addDVD" type="tns:addDVD"/>
+
+<xs:element name="addDVDResponse" type="tns:addDVDResponse"/>
+
+<xs:element name="getDVDById" type="tns:getDVDById"/>
+
+<xs:element name="getDVDByIdResponse" type="tns:getDVDByIdResponse"/>
+
+<xs:complexType name="getDVDById">
+<xs:sequence>
+<xs:element name="arg0" type="xs:long"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getDVDByIdResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:storeDVDUtil" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="storeDVDUtil">
+<xs:sequence>
+<xs:element name="actors" type="xs:string" minOccurs="0"/>
+<xs:element name="addedDate" type="xs:dateTime" minOccurs="0"/>
+<xs:element name="addedEmployeeId" type="xs:int"/>
+<xs:element name="format" type="xs:string" minOccurs="0"/>
+<xs:element name="modifiedDate" type="xs:dateTime" minOccurs="0"/>
+<xs:element name="rating" type="xs:string" minOccurs="0"/>
+<xs:element name="releasedYear" type="xs:string" minOccurs="0"/>
+<xs:element name="title" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="addDVD">
+<xs:sequence>
+<xs:element name="arg0" type="tns:storeDVDUtil" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="addDVDResponse">
+<xs:sequence/>
+</xs:complexType>
+</xs:schema>
