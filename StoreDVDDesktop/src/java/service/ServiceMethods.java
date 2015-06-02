@@ -30,7 +30,15 @@ public class ServiceMethods {
     private static StoreCustomerFacadeLocal storecustomerfacade;
     private static StoreBookingFacadeLocal storebookingfacade;
 
-    boolean isWeb = false;
+    private boolean isWeb = false;
+
+    public boolean isIsWeb() {
+        return isWeb;
+    }
+
+    public void setIsWeb(boolean isWeb) {
+        this.isWeb = isWeb;
+    }
 
     public ServiceMethods(boolean isWeb) {
         if (isWeb) {

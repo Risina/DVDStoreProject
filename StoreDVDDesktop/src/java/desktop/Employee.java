@@ -43,6 +43,8 @@ public class Employee extends javax.swing.JFrame {
         isleNoTextField.setEditable(false);
         shelfNoTextField.setEditable(false);
         copySearchButton.setEnabled(false);
+        
+        isOnlineCheckBox.setSelected(isWeb);
     }
 
     /**
@@ -87,6 +89,7 @@ public class Employee extends javax.swing.JFrame {
         dvdCopyTable = new javax.swing.JTable();
         copySearchButton = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
+        isOnlineCheckBox = new javax.swing.JCheckBox();
         jScrollPane3 = new javax.swing.JScrollPane();
         log = new javax.swing.JTextArea();
 
@@ -309,33 +312,45 @@ public class Employee extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
         jLabel9.setText("Search/ Add copies");
 
+        isOnlineCheckBox.setText("Online");
+        isOnlineCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                isOnlineCheckBoxActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(98, 98, 98)
-                        .addComponent(addCopyButton))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(isOnlineCheckBox))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(50, 50, 50)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel7))
-                        .addGap(39, 39, 39)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(dvdIdTextField)
-                            .addComponent(isleNoTextField)
-                            .addComponent(shelfNoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(76, 76, 76)
-                        .addComponent(copySearchButton)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel9)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGap(98, 98, 98)
+                                .addComponent(addCopyButton))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGap(50, 50, 50)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel7))
+                                .addGap(39, 39, 39)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(dvdIdTextField)
+                                    .addComponent(isleNoTextField)
+                                    .addComponent(shelfNoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGap(76, 76, 76)
+                                .addComponent(copySearchButton)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel9)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(31, 31, 31))
         );
         jPanel4Layout.setVerticalGroup(
@@ -345,7 +360,9 @@ public class Employee extends javax.swing.JFrame {
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48))
+                .addGap(19, 19, 19)
+                .addComponent(isOnlineCheckBox)
+                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -399,7 +416,7 @@ public class Employee extends javax.swing.JFrame {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
 
         pack();
@@ -456,22 +473,25 @@ public class Employee extends javax.swing.JFrame {
         updateTable(sMethods.getDVDs());
     }//GEN-LAST:event_resetButtonActionPerformed
 
+    private void isOnlineCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_isOnlineCheckBoxActionPerformed
+        sMethods.setIsWeb(isOnlineCheckBox.isSelected());
+    }//GEN-LAST:event_isOnlineCheckBoxActionPerformed
+
     private void copySearchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copySearchButtonActionPerformed
-        
-        updateCopyTable(sMethods.getCopiedByDVDId(Long.parseLong(dvdIdTextField.getText())));   
+
+        updateCopyTable(sMethods.getCopiedByDVDId(Long.parseLong(dvdIdTextField.getText())));
     }//GEN-LAST:event_copySearchButtonActionPerformed
 
     private void addCopyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCopyButtonActionPerformed
-        
+
         if(!dvdIdTextField.getText().equals("") && !shelfNoTextField.getText().equals("") && !isleNoTextField.getText().equals("")) {
             Long dvdId = Long.parseLong(dvdIdTextField.getText());
             int shelfNo = Integer.parseInt(shelfNoTextField.getText());
             int isleNo = Integer.parseInt(isleNoTextField.getText());
-        
-        
+
             StoreDVDUtil dvdUtil = new StoreDVDUtil(dvdId, null, null, null, null, null);
             StoreDVDCopyUtil util = new StoreDVDCopyUtil(dvdUtil, shelfNo, isleNo);
-        
+
             sMethods.addCopy(util);
             updateCopyTable(sMethods.getCopiedByDVDId(Long.parseLong(dvdIdTextField.getText())));
         }
@@ -596,6 +616,7 @@ public class Employee extends javax.swing.JFrame {
     private javax.swing.JTextField dvdIdTextField;
     private javax.swing.JTable dvdTable;
     private javax.swing.JTextField formatTextField;
+    private javax.swing.JCheckBox isOnlineCheckBox;
     private javax.swing.JTextField isleNoTextField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

@@ -30,6 +30,8 @@ public final class DesktopClient extends javax.swing.JFrame {
         customerToggleButton.setSelected(true);
         user = TOGGLE_CUSTOMER;
         sMethods = new ServiceMethods(isWeb);
+        
+        isOnlineCheckBox.setSelected(isWeb);
     }
 
     /**
@@ -48,6 +50,7 @@ public final class DesktopClient extends javax.swing.JFrame {
         loginButton = new javax.swing.JButton();
         customerToggleButton = new javax.swing.JToggleButton();
         employeeToggleButton = new javax.swing.JToggleButton();
+        isOnlineCheckBox = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -82,6 +85,13 @@ public final class DesktopClient extends javax.swing.JFrame {
             }
         });
 
+        isOnlineCheckBox.setText("Online");
+        isOnlineCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                isOnlineCheckBoxActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -106,6 +116,10 @@ public final class DesktopClient extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(employeeToggleButton)))
                 .addContainerGap(76, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(isOnlineCheckBox)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -124,7 +138,9 @@ public final class DesktopClient extends javax.swing.JFrame {
                     .addComponent(passwordTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
                 .addComponent(loginButton)
-                .addGap(66, 66, 66))
+                .addGap(37, 37, 37)
+                .addComponent(isOnlineCheckBox)
+                .addContainerGap())
         );
 
         pack();
@@ -146,7 +162,7 @@ public final class DesktopClient extends javax.swing.JFrame {
                 java.awt.EventQueue.invokeLater(new Runnable() {
                     @Override
                     public void run() {
-                        new Customer(isWeb, Long.parseLong(userId)).setVisible(true);
+                        new Customer(sMethods.isIsWeb(), Long.parseLong(userId)).setVisible(true);
                     }
                 });
             }     
@@ -155,7 +171,7 @@ public final class DesktopClient extends javax.swing.JFrame {
             if(sMethods.authenticate(userId+":"+password, TOGGLE_EMPLOYEE).equals(userId)) {
                 java.awt.EventQueue.invokeLater(new Runnable() {
                     public void run() {
-                        new Employee(isWeb, Long.parseLong(userId)).setVisible(true);
+                        new Employee(sMethods.isIsWeb(), Long.parseLong(userId)).setVisible(true);
                     }
                 });
             }       
@@ -176,6 +192,10 @@ public final class DesktopClient extends javax.swing.JFrame {
         employeeToggleButton.setSelected(true);
         user = TOGGLE_EMPLOYEE;
     }//GEN-LAST:event_employeeToggleButtonActionPerformed
+
+    private void isOnlineCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_isOnlineCheckBoxActionPerformed
+        sMethods.setIsWeb(isOnlineCheckBox.isSelected());
+    }//GEN-LAST:event_isOnlineCheckBoxActionPerformed
 
     /**
      * @param args the command line arguments
@@ -208,7 +228,7 @@ public final class DesktopClient extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new DesktopClient(true).setVisible(true);
+                new DesktopClient(false).setVisible(true);
             }
         });
     }
@@ -228,6 +248,7 @@ public final class DesktopClient extends javax.swing.JFrame {
     private javax.swing.JToggleButton customerToggleButton;
     private javax.swing.JToggleButton employeeToggleButton;
     private javax.swing.JTextField idTextField;
+    private javax.swing.JCheckBox isOnlineCheckBox;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JButton loginButton;
