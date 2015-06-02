@@ -208,7 +208,7 @@ public final class DesktopClient extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new DesktopClient(false).setVisible(true);
+                new DesktopClient(true).setVisible(true);
             }
         });
     }

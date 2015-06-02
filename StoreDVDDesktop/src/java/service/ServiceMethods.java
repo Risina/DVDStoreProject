@@ -23,104 +23,160 @@ import util.StoreDVDUtil;
  * @author Risina
  */
 public class ServiceMethods {
-    
+
     private static StoreDvdFacadeLocal storedvdfacade;
     private static StoreEmployeeFacadeLocal storeemployeefacade;
     private static StoreDVDCopyFacadeLocal storedvdcopyfacade;
     private static StoreCustomerFacadeLocal storecustomerfacade;
     private static StoreBookingFacadeLocal storebookingfacade;
-    
+
     boolean isWeb = false;
-    
+
     public ServiceMethods(boolean isWeb) {
-        if(isWeb) {
-            
-        }
-        else {
+        if (isWeb) {
+
+        } else {
             storedvdfacade = (StoreDvdFacadeLocal) getEJBBean("storedvdfacade");
             storeemployeefacade = (StoreEmployeeFacadeLocal) getEJBBean("storeemployeefacade");
             storedvdcopyfacade = (StoreDVDCopyFacadeLocal) getEJBBean("storedvdcopyfacade");
             storecustomerfacade = (StoreCustomerFacadeLocal) getEJBBean("storecustomerfacade");
             storebookingfacade = (StoreBookingFacadeLocal) getEJBBean("storebookingfacade");
         }
-        
+
         this.isWeb = isWeb;
     }
-    
+
     public String authenticate(String credectials, String userType) {
-        
+
         String output;
+
+            if (userType == "Customer") {
+                
+                if(isWeb) {
+                    output =new RestClient().authenticateCustomer(credectials);
+                }
+                else {
+                    output = storecustomerfacade.authencticate(credectials);
+                }
+                
+            } else {
+                if(isWeb) {
+                    output =new RestClient().authenticateEmployee(credectials);
+                }else {
+                    output = storeemployeefacade.authencticate(credectials);
+                }
+               
+            }
         
-        if(isWeb) {
-            output = "";
-        }
-        else {
-            if(userType == "Customer") {
-                output = storecustomerfacade.authencticate(credectials);
-            }
-            else {
-                output = storeemployeefacade.authencticate(credectials);
-            }
-        }
         return output;
     }
-    
+
     public List<StoreDVDUtil> getDVDs() {
-        if(isWeb) {
+        if (isWeb) {
             return new RestClient().getDVDs();
-        }
-        else {
+        } else {
             return storedvdfacade.getDVDs();
         }
-      
+
     }
+
     public String addDVD(StoreDVDUtil util) {
         
-        try{
-            storedvdfacade.addDVD(util);
-        }
-        catch(EJBException ex) {
+        String message = "";
+        try {
+            if (isWeb) {
+                message = new RestClient().addDVD(util);
+            } else {
+                storedvdfacade.addDVD(util);
+            }
+            
+        } catch (EJBException ex) {
             return ex.getMessage();
-        }
-        
-        return "Success";
+        } 
+
+        return message;
     }
+
     public List<StoreDVDUtil> getDVDsByTitle(String title) {
-        return storedvdfacade.getDVDsByTitle(title);
-    }
-    public List<StoreDVDUtil> getDVDsByRating(String rating) {
-        return storedvdfacade.getDVDsByRating(rating);
-    }
-    public List<StoreDVDUtil> getDVDsByFormat(String format) {
-        return storedvdfacade.getDVDsByFormat(format);
-    }
-    public List<StoreDVDUtil> getDVDsByYear(String year) {
-        return storedvdfacade.getDVDsByYear(year);
-    }
-    
-    
-    
-    public void addCopy(StoreDVDCopyUtil dvdCopy){
-        storedvdcopyfacade.addCopy(dvdCopy);
-    }
-    public List<StoreDVDCopyUtil> getCopiedByDVDId(Long dvdId) {
-        return storedvdfacade.getCopiedByDVDId(dvdId);
-    }
-    
-    public String addBooking(StoreBookingUtil booking) {
         
-        try{
-            storebookingfacade.addBooking(booking);
+        if(isWeb) {
+            return new RestClient().getDVDsByTitle(title);
         }
-        catch(EJBException ex) {
+        else {
+            return storedvdfacade.getDVDsByTitle(title);
+        }
+        
+    }
+
+    public List<StoreDVDUtil> getDVDsByRating(String rating) {
+        
+        if(isWeb) {
+            return new RestClient().getDVDsByRating(rating);
+        }
+        else {
+            return storedvdfacade.getDVDsByRating(rating);
+        }
+        
+    }
+
+    public List<StoreDVDUtil> getDVDsByFormat(String format) {
+        
+        if(isWeb) {
+            return new RestClient().getDVDsByFormat(format);
+        }
+        else {
+            return storedvdfacade.getDVDsByFormat(format);
+        }
+        
+    }
+
+    public List<StoreDVDUtil> getDVDsByYear(String year) {
+        
+        if(isWeb) {
+            return new RestClient().getDVDsByYear(year);
+        }
+        else {
+            return storedvdfacade.getDVDsByYear(year);
+        }
+    
+    }
+
+    public void addCopy(StoreDVDCopyUtil dvdCopy) {
+        
+        if(isWeb) {
+            new RestClient().addCopy(dvdCopy);
+        }
+        else {
+            storedvdcopyfacade.addCopy(dvdCopy);
+        }
+    }
+
+    public List<StoreDVDCopyUtil> getCopiedByDVDId(Long dvdId) {
+        
+        if(isWeb) {
+            return new RestClient().getCopiedByDVDId(dvdId);
+        }
+        else {
+            return storedvdfacade.getCopiedByDVDId(dvdId);
+        }
+        
+    }
+
+    public String addBooking(StoreBookingUtil booking) {
+
+        try {
+            if(isWeb) {
+                return new RestClient().addBooking(booking);
+            }
+            else {
+                storebookingfacade.addBooking(booking);
+            } 
+        } catch (EJBException ex) {
             return ex.getMessage();
         }
         return "Success!";
     }
-    
-    
-    
-    
+
     private Object getEJBBean(String beanName) {
         try {
             InitialContext ctx = new InitialContext();

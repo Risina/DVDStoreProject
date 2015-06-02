@@ -6,18 +6,19 @@
 package service;
 
 import com.google.gson.Gson;
-import util.StoreDVDUtil;
-import java.util.List;
+import javax.ejb.EJBException;
 import javax.naming.InitialContext;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import services.StoreDvdFacadeLocal;
+import util.*;
 
 /**
  * REST Web Service
@@ -46,18 +47,58 @@ public class StoreDvdRest {
     @GET
     @Produces("application/json")
     public String getDvds() {
-        
         return new Gson().toJson(storedvdfacade.getDVDs());
     }
-
-    /**
-     * PUT method for updating or creating an instance of StoreDvdRest
-     * @param content representation for the resource
-     * @return an HTTP response with content of the updated or created resource.
-     */
-    @PUT
+    
+    @POST
+    @Produces("application/json")
     @Consumes("application/json")
-    public void putJson(String content) {
+    public String postDvds(String dvd) {
+        String success = "";
+        try{
+            storedvdfacade.addDVD(new Gson().fromJson(dvd, StoreDVDUtil.class));
+            success = "Success";
+        }
+        catch(EJBException e){
+            success = e.getMessage();
+        }
+
+        return success;
+    }
+
+    @GET
+    @Path("title/{value}")
+    @Produces("application/json")
+    public String getDVDsByTitle(@PathParam("value") String value) {
+        return new Gson().toJson(storedvdfacade.getDVDsByTitle(value));
+    }
+    
+    @GET
+    @Path("rating/{value}")
+    @Produces("application/json")
+    public String getDVDsByRating(@PathParam("value") String value) {
+        return new Gson().toJson(storedvdfacade.getDVDsByRating(value));
+    }
+    
+    @GET
+    @Path("year/{value}")
+    @Produces("application/json")
+    public String getDVDsByYear(@PathParam("value") String value) {
+        return new Gson().toJson(storedvdfacade.getDVDsByYear(value));
+    }
+    
+    @GET
+    @Path("format/{value}")
+    @Produces("application/json")
+    public String getDVDsByFormat(@PathParam("value") String value) {
+        return new Gson().toJson(storedvdfacade.getDVDsByFormat(value));
+    }
+    
+    @GET
+    @Path("copy/{id}")
+    @Produces("application/json")
+    public String getCopiedByDVDId(@PathParam("id") Long value) {
+        return new Gson().toJson(storedvdfacade.getCopiedByDVDId(value));
     }
     
     public Object getEJBBean(String beanName) {

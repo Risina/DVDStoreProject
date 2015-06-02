@@ -791,10 +791,9 @@ exists or setup the property manually. For example like this:
         <basename file="${file.reference.javaee.jar}" property="manifest.file.reference.javaee.jar"/>
         <basename file="${libs.javaee-web-api-7.0.classpath}" property="manifest.libs.javaee-web-api-7.0.classpath"/>
         <basename file="${file.reference.httpclient-4.4.1.jar}" property="manifest.file.reference.httpclient-4.4.1.jar"/>
-        <basename file="${file.reference.jersey-client.jar}" property="manifest.file.reference.jersey-client.jar"/>
         <basename file="${file.reference.gson-2.3.1.jar}" property="manifest.file.reference.gson-2.3.1.jar"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Extension-List" value="jar-1 jar-2 jar-3 jar-4 jar-5 jar-6 jar-7 jar-8 jar-9 "/>
+            <attribute name="Extension-List" value="jar-1 jar-2 jar-3 jar-4 jar-5 jar-6 jar-7 jar-8 "/>
             <attribute name="jar-1-Extension-Name" value="${manifest.reference.StoreDVDPublicInterface.jar}"/>
             <attribute name="jar-2-Extension-Name" value="${manifest.libs.javaee-endorsed-api-7.0.classpath}"/>
             <attribute name="jar-3-Extension-Name" value="${manifest.libs.javaee-api-7.0.classpath}"/>
@@ -802,8 +801,7 @@ exists or setup the property manually. For example like this:
             <attribute name="jar-5-Extension-Name" value="${manifest.file.reference.javaee.jar}"/>
             <attribute name="jar-6-Extension-Name" value="${manifest.libs.javaee-web-api-7.0.classpath}"/>
             <attribute name="jar-7-Extension-Name" value="${manifest.file.reference.httpclient-4.4.1.jar}"/>
-            <attribute name="jar-8-Extension-Name" value="${manifest.file.reference.jersey-client.jar}"/>
-            <attribute name="jar-9-Extension-Name" value="${manifest.file.reference.gson-2.3.1.jar}"/>
+            <attribute name="jar-8-Extension-Name" value="${manifest.file.reference.gson-2.3.1.jar}"/>
         </manifest>
     </target>
     <target depends="compile" if="dist.ear.dir" name="library-inclusion-in-manifest">
@@ -814,10 +812,9 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.javaee.jar}" manifestproperty="manifest.file.reference.javaee.jar" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${libs.javaee-web-api-7.0.classpath}" manifestproperty="manifest.libs.javaee-web-api-7.0.classpath" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${file.reference.httpclient-4.4.1.jar}" manifestproperty="manifest.file.reference.httpclient-4.4.1.jar" todir="${dist.ear.dir}/lib"/>
-        <copyfiles files="${file.reference.jersey-client.jar}" manifestproperty="manifest.file.reference.jersey-client.jar" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${file.reference.gson-2.3.1.jar}" manifestproperty="manifest.file.reference.gson-2.3.1.jar" todir="${dist.ear.dir}/lib"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${manifest.reference.StoreDVDPublicInterface.jar} lib/${manifest.reference.StoreDVDPublicInterface.jar} ${manifest.libs.javaee-endorsed-api-7.0.classpath} lib/${manifest.libs.javaee-endorsed-api-7.0.classpath} ${manifest.libs.javaee-api-7.0.classpath} lib/${manifest.libs.javaee-api-7.0.classpath} ${manifest.file.reference.appserv-rt.jar} lib/${manifest.file.reference.appserv-rt.jar} ${manifest.file.reference.javaee.jar} lib/${manifest.file.reference.javaee.jar} ${manifest.libs.javaee-web-api-7.0.classpath} lib/${manifest.libs.javaee-web-api-7.0.classpath} ${manifest.file.reference.httpclient-4.4.1.jar} lib/${manifest.file.reference.httpclient-4.4.1.jar} ${manifest.file.reference.jersey-client.jar} lib/${manifest.file.reference.jersey-client.jar} ${manifest.file.reference.gson-2.3.1.jar} lib/${manifest.file.reference.gson-2.3.1.jar} "/>
+            <attribute name="Class-Path" value="${manifest.reference.StoreDVDPublicInterface.jar} lib/${manifest.reference.StoreDVDPublicInterface.jar} ${manifest.libs.javaee-endorsed-api-7.0.classpath} lib/${manifest.libs.javaee-endorsed-api-7.0.classpath} ${manifest.libs.javaee-api-7.0.classpath} lib/${manifest.libs.javaee-api-7.0.classpath} ${manifest.file.reference.appserv-rt.jar} lib/${manifest.file.reference.appserv-rt.jar} ${manifest.file.reference.javaee.jar} lib/${manifest.file.reference.javaee.jar} ${manifest.libs.javaee-web-api-7.0.classpath} lib/${manifest.libs.javaee-web-api-7.0.classpath} ${manifest.file.reference.httpclient-4.4.1.jar} lib/${manifest.file.reference.httpclient-4.4.1.jar} ${manifest.file.reference.gson-2.3.1.jar} lib/${manifest.file.reference.gson-2.3.1.jar} "/>
         </manifest>
     </target>
     <target name="-copy-meta-inf">
