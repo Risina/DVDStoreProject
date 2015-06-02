@@ -26,7 +26,7 @@ public class Customer extends javax.swing.JFrame {
     /**
      * Creates new form Customer
      */
-    Long customerId;
+    private Long customerId;
    
     ServiceMethods sMethods;
     
