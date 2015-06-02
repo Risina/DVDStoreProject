@@ -38,11 +38,11 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "StoreDvd.findAll", query = "SELECT s FROM StoreDvd s"),
     @NamedQuery(name = "StoreDvd.findByStoreDvdId", query = "SELECT s FROM StoreDvd s WHERE s.storeDvdId = :storeDvdId"),
-    @NamedQuery(name = "StoreDvd.findByStoreDvdTitle", query = "SELECT s FROM StoreDvd s WHERE s.storeDvdTitle = :storeDvdTitle"),
-    @NamedQuery(name = "StoreDvd.findByStoredvdreleasedYear", query = "SELECT s FROM StoreDvd s WHERE s.storedvdreleasedYear = :storedvdreleasedYear"),
+    @NamedQuery(name = "StoreDvd.findByStoreDvdTitle", query = "SELECT s FROM StoreDvd s WHERE s.storeDvdTitle LIKE :storeDvdTitle"),
+    @NamedQuery(name = "StoreDvd.findByStoredvdreleasedYear", query = "SELECT s FROM StoreDvd s WHERE s.storedvdreleasedYear LIKE :storedvdreleasedYear"),
     @NamedQuery(name = "StoreDvd.findByStoreDvdActors", query = "SELECT s FROM StoreDvd s WHERE s.storeDvdActors = :storeDvdActors"),
-    @NamedQuery(name = "StoreDvd.findByStoreDvdRating", query = "SELECT s FROM StoreDvd s WHERE s.storeDvdRating = :storeDvdRating"),
-    @NamedQuery(name = "StoreDvd.findByStoreDvdFormat", query = "SELECT s FROM StoreDvd s WHERE s.storeDvdFormat = :storeDvdFormat"),
+    @NamedQuery(name = "StoreDvd.findByStoreDvdRating", query = "SELECT s FROM StoreDvd s WHERE s.storeDvdRating LIKE :storeDvdRating"),
+    @NamedQuery(name = "StoreDvd.findByStoreDvdFormat", query = "SELECT s FROM StoreDvd s WHERE s.storeDvdFormat LIKE :storeDvdFormat"),
     @NamedQuery(name = "StoreDvd.findByStoreDvdAddedDate", query = "SELECT s FROM StoreDvd s WHERE s.storeDvdAddedDate = :storeDvdAddedDate"),
     @NamedQuery(name = "StoreDvd.findByStoreDvdModifiedDate", query = "SELECT s FROM StoreDvd s WHERE s.storeDvdModifiedDate = :storeDvdModifiedDate")})
 public class StoreDvd implements Serializable {

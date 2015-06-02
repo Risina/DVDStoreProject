@@ -64,25 +64,25 @@ public class StoreDVDFacade implements StoreDvdFacadeLocal{
     
     @Override
     public List<StoreDVDUtil> getDVDsByTitle(String title) {
-        List<StoreDvd> dvds = (List<StoreDvd>)em.createNamedQuery("StoreDvd.findByStoreDvdTitle").setParameter("storeDvdTitle", title).getResultList();
+        List<StoreDvd> dvds = (List<StoreDvd>)em.createNamedQuery("StoreDvd.findByStoreDvdTitle").setParameter("storeDvdTitle", "%" +title+ "%").getResultList();
         return new UtilMethods().copyListToDetails(dvds);
     }
     
     @Override
     public List<StoreDVDUtil> getDVDsByRating(String rating) {
-        List<StoreDvd> dvds = (List<StoreDvd>)em.createNamedQuery("StoreDvd.findByStoreDvdRating").setParameter("storeDvdRating", rating).getResultList();
+        List<StoreDvd> dvds = (List<StoreDvd>)em.createNamedQuery("StoreDvd.findByStoreDvdRating").setParameter("storeDvdRating", "%" +rating+"%").getResultList();
         return new UtilMethods().copyListToDetails(dvds);
     }
     
     @Override
     public List<StoreDVDUtil> getDVDsByYear(String year) {
-        List<StoreDvd> dvds = (List<StoreDvd>)em.createNamedQuery("StoreDvd.findByStoredvdreleasedYear").setParameter("storedvdreleasedYear", year).getResultList();
+        List<StoreDvd> dvds = (List<StoreDvd>)em.createNamedQuery("StoreDvd.findByStoredvdreleasedYear").setParameter("storedvdreleasedYear", "%" +year+"%").getResultList();
         return new UtilMethods().copyListToDetails(dvds);
     }
     
     @Override
     public List<StoreDVDUtil> getDVDsByFormat(String format) {
-        List<StoreDvd> dvds = (List<StoreDvd>)em.createNamedQuery("StoreDvd.findByStoreDvdFormat").setParameter("storeDvdFormat", format).getResultList();
+        List<StoreDvd> dvds = (List<StoreDvd>)em.createNamedQuery("StoreDvd.findByStoreDvdFormat").setParameter("storeDvdFormat", "%" +format+"%").getResultList();
         return new UtilMethods().copyListToDetails(dvds);
     }
     

@@ -7,6 +7,7 @@ package desktop;
 
 import javax.naming.InitialContext;
 import javax.swing.ButtonGroup;
+import javax.swing.JOptionPane;
 import service.ServiceMethods;
 import services.*;
 import util.StoreDVDUtil;
@@ -211,6 +212,12 @@ public final class DesktopClient extends javax.swing.JFrame {
 
     private void isOnlineCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_isOnlineCheckBoxActionPerformed
         sMethods.setIsWeb(isOnlineCheckBox.isSelected());
+        if(isOnlineCheckBox.isSelected()) {
+            JOptionPane.showMessageDialog(null, "You are now using online services");
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "You are now using local services");
+        }
     }//GEN-LAST:event_isOnlineCheckBoxActionPerformed
 
     /**

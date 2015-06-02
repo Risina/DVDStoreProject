@@ -6,6 +6,7 @@
 package desktop;
 
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import service.ServiceMethods;
 import services.StoreCustomerFacadeLocal;
@@ -351,6 +352,12 @@ public class Customer extends javax.swing.JFrame {
 
     private void isOnlineCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_isOnlineCheckBoxActionPerformed
         sMethods.setIsWeb(isOnlineCheckBox.isSelected());
+        if(isOnlineCheckBox.isSelected()) {
+            JOptionPane.showMessageDialog(null, "You are now using online services");
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "You are now using local services");
+        }
     }//GEN-LAST:event_isOnlineCheckBoxActionPerformed
 
     private void updateTable(List<StoreDVDUtil> dvds) {

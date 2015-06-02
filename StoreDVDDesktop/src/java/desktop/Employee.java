@@ -7,6 +7,7 @@ package desktop;
 
 import java.awt.Color;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import service.ServiceMethods;
 import services.StoreDVDCopyFacadeLocal;
@@ -427,15 +428,28 @@ public class Employee extends javax.swing.JFrame {
     }//GEN-LAST:event_formatTextFieldActionPerformed
 
     private void addDVDButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addDVDButtonActionPerformed
-       StoreDVDUtil util = new StoreDVDUtil(titleText.getText(), 
+       
+        if(!titleText.getText().equals("") &&
+                !releasedYearText.getText().equals("") &&
+                !mainActorsTextField.getText().equals("") &&
+                !ratingTextField.getText().equals("") &&
+                !formatTextField.getText().equals("") ) {
+            
+            StoreDVDUtil util = new StoreDVDUtil(titleText.getText(), 
                releasedYearText.getText(), 
                mainActorsTextField.getText(), 
                ratingTextField.getText(), 
                formatTextField.getText());
        
-       util.setAddedEmployeeId(employeeId);
-       log.append(sMethods.addDVD(util)+"\n");
-       updateTable(sMethods.getDVDs());
+            util.setAddedEmployeeId(employeeId);
+            log.append(sMethods.addDVD(util)+"\n");
+            updateTable(sMethods.getDVDs());
+            
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "Please enter all fields");
+        }
+        
     }//GEN-LAST:event_addDVDButtonActionPerformed
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
@@ -475,6 +489,12 @@ public class Employee extends javax.swing.JFrame {
 
     private void isOnlineCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_isOnlineCheckBoxActionPerformed
         sMethods.setIsWeb(isOnlineCheckBox.isSelected());
+        if(isOnlineCheckBox.isSelected()) {
+            JOptionPane.showMessageDialog(null, "You are now using online services");
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "You are now using local services");
+        }
     }//GEN-LAST:event_isOnlineCheckBoxActionPerformed
 
     private void copySearchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copySearchButtonActionPerformed
