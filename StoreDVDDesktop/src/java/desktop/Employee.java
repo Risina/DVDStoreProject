@@ -498,8 +498,13 @@ public class Employee extends javax.swing.JFrame {
     }//GEN-LAST:event_isOnlineCheckBoxActionPerformed
 
     private void copySearchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copySearchButtonActionPerformed
-
-        updateCopyTable(sMethods.getCopiedByDVDId(Long.parseLong(dvdIdTextField.getText())));
+        if(isNumeric(dvdIdTextField.getText())) {
+            updateCopyTable(sMethods.getCopiedByDVDId(Long.parseLong(dvdIdTextField.getText())));
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "Please enter a numric value");
+        }
+        
     }//GEN-LAST:event_copySearchButtonActionPerformed
 
     private void addCopyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCopyButtonActionPerformed
@@ -592,6 +597,19 @@ public class Employee extends javax.swing.JFrame {
         searchCombobox.addItem("Year");
         searchCombobox.addItem("Rating");
         searchCombobox.addItem("Format");
+    }
+    
+    public static boolean isNumeric(String str)  
+    {  
+        try  
+        {  
+            double d = Double.parseDouble(str);  
+        }  
+        catch(NumberFormatException nfe)  
+        {  
+            return false;  
+        }  
+        return true;  
     }
     /**
      * @param args the command line arguments

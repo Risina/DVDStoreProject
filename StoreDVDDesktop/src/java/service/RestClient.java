@@ -40,11 +40,6 @@ public class RestClient {
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Accept", "application/json");
 
-//            if (conn.getResponseCode() != 200) {
-//                    throw new RuntimeException("Failed : HTTP error code : "
-//                                    + conn.getResponseCode());
-//            }
-
             br = new BufferedReader(new InputStreamReader(
                     (conn.getInputStream())));
 
@@ -56,7 +51,7 @@ public class RestClient {
             System.out.print(uri+" Output: "+builder.toString()+"\n");
         }
         catch(Exception e) {
-            
+            return "Thre is a connection problem";
         }
         finally{
             if(conn!=null) {

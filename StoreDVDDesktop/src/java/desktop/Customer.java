@@ -334,16 +334,30 @@ public class Customer extends javax.swing.JFrame {
     }//GEN-LAST:event_searchButtonActionPerformed
 
     private void copySearchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copySearchButtonActionPerformed
-
-        updateCopyTable(sMethods.getCopiedByDVDId(Long.parseLong(dvdIdTextField.getText())));
+        
+        if(isNumeric(dvdIdTextField.getText())) {
+            updateCopyTable(sMethods.getCopiedByDVDId(Long.parseLong(dvdIdTextField.getText())));
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "Please enter a numric value");
+        }
+        
     }//GEN-LAST:event_copySearchButtonActionPerformed
 
     private void orderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderButtonActionPerformed
-         String copyId = copyIdTextField.getText();
-         StoreBookingUtil util = new StoreBookingUtil(
+         
+        String copyId = copyIdTextField.getText();
+        
+        if(isNumeric(copyId)) {
+            StoreBookingUtil util = new StoreBookingUtil(
                  null, 
                  new StoreCustomerUtil(customerId, "", ""), new StoreDVDCopyUtil(Long.parseLong(copyId)));
          log.append(sMethods.addBooking(util)+"\n");
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "Please enter a numric value");
+        }
+         
     }//GEN-LAST:event_orderButtonActionPerformed
 
     private void copyIdTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copyIdTextFieldActionPerformed
@@ -417,6 +431,19 @@ public class Customer extends javax.swing.JFrame {
         searchCombobox.addItem("Year");
         searchCombobox.addItem("Rating");
         searchCombobox.addItem("Format");
+    }
+    
+    public static boolean isNumeric(String str)  
+    {  
+        try  
+        {  
+            double d = Double.parseDouble(str);  
+        }  
+        catch(NumberFormatException nfe)  
+        {  
+            return false;  
+        }  
+        return true;  
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
