@@ -28,7 +28,7 @@ import util.StoreDVDUtil;
  */
 public class RestClient {
     
-    private static final String SERVER_ADDRESS = "http://192.168.1.101:8080/DVDStoreWeb/webresources/";
+    private static final String SERVER_ADDRESS = "http://localhost:8080/DVDStoreWeb/webresources/";
     private String getData(String uri) {
         
         HttpURLConnection conn = null;

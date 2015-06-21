@@ -6,7 +6,9 @@
 package services;
 
 import entities.StoreDvd;
+import entities.StoreDvdCopy;
 import entities.StoreEmployee;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJBException;
@@ -88,8 +90,8 @@ public class StoreDVDFacade implements StoreDvdFacadeLocal{
     
     @Override
     public List<StoreDVDCopyUtil> getCopiedByDVDId(Long dvdId) {
-        StoreDvd dvd = em.find(StoreDvd.class, dvdId);
-        return new UtilMethods().copyDVDCopyListToDetails(dvd.getStoreDvdCopyList());
+        List<StoreDvdCopy> dvds = (List<StoreDvdCopy>)em.createNamedQuery("StoreDvdCopy.findByStoreDvdId").setParameter("storeDvdId", dvdId).getResultList();
+        return new UtilMethods().copyDVDCopyListToDetails(dvds);
     }
     
     @Override
